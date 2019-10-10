@@ -1,29 +1,42 @@
 module.exports = function zeros(expression) {
-  // your solution
-  //функция вычисления двойного факториала для четных и нечетных
-  function doubleFakt(n){
-	var result = 1;
+  var result = 1
+  var ExprArr = expression.split('*')
+  ExprArr.forEach(function(elem){
+    if(elem.match(/[!]/g).length == 2){
+      result = BigInt(result) * BigInt(doubleFakt(elem))
+    }else{
+      result = BigInt(result) * BigInt(oneFakt(elem))
+    }
+  })
+  var num = String(result).match(/0{0,}$/g)
 
-	if(expression%2 == 0){
-		for(var j = 2; j <= expression; j=j+2){
+  if(String(num).length == 0){
+    return String(num).length
+  }else{
+    return String(num).length-1
+  }
+}
 
-			result = result * j;
-		}
-		return result;
-	} else{
-		for(var j = 1; j <= expression; j=j+2){
 
-		result = result * j;
-		}
-		return result;
-		}
-	}
-	//функция вычисления  факториала
-	function oneFakt(expression){
-		var result = 1;
-		for(var j = 1; j <= n; j++){
-			result = result * j;
-		}
-		return result;
-	}
+function doubleFakt(n){
+  var result = 1;
+  if(Number.parseInt(n)%2 == 0){
+    for(var j = 2; j <= Number.parseInt(n); j += 2){
+      result = BigInt(result) * BigInt(j);
+    }
+  }else{
+    for(var j = 1; j <= Number.parseInt(n); j += 2){
+      result = BigInt(result) * BigInt(j);
+    }
+  }
+  return BigInt(result);
+}
+
+
+function oneFakt(n){
+  var result = 1;
+  for(var j = 1; j <= Number.parseInt(n); j++){
+    result = BigInt(result) * BigInt(j);
+  }
+  return BigInt(result);
 }
